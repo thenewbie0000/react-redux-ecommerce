@@ -2,26 +2,31 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Cartsdata from "./CartData";
+import "./style.css";
 
 const Carts = () => {
-  const [data,setData] = useState(Cartsdata)
-  console.log(data)
+  const [data, setData] = useState(Cartsdata);
 
   return (
     <div className="container mt-3 text-center">
       <h2>E-Kart</h2>
-      <div className="row">
+      <div className="row d-flex justify-content-center align-items-center">
         {data.map((card) => (
-          <Card key={card.id} style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={card.imgdata} />
+          <Card
+            key={card.id}
+            className="card_style mx-4 mt-4"
+          >
+            <Card.Img variant="top" src={card.imgdata} className="cart-img" />
             <Card.Body>
               <Card.Title>{card.rname}</Card.Title>
               <Card.Text>
+                Price: ${card.price} <br />
+                Rating: {card.rating} <br />
                 {card.somedata}
-                Price: ${card.price}
-                Rating: {card.rating}
               </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+              <div className="button_div d-flex justify-content-center">
+                <Button variant="primary">Add to Cart</Button>
+              </div>
             </Card.Body>
           </Card>
         ))}
