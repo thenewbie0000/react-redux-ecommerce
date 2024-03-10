@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Badge from "@mui/material/Badge";
 import Menu from "@mui/material/Menu";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
+import { DELETE_FROM_CART } from "../redux/action/action";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(0);
+  const [price, setPrice] = useState(0)
+  console.log(price)
   const open = Boolean(anchorEl);
 
   const getData = useSelector((state) => state.cartReducer.carts);
@@ -21,6 +24,21 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const dispatch = useDispatch();
+  const deleteData = (id)=>{
+    dispatch(DELETE_FROM_CART(id))
+  }
+
+  const totalPrice = ()=>{
+    let price= 0;
+    getData.map((element, k)=>{
+      price = price + element.price;
+    })
+    setPrice(price);
+  }
+
+  useEffect(()=>totalPrice(),[totalPrice])
 
   return (
     <>
@@ -85,27 +103,43 @@ const Header = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    getData.map((card)=>{
-                      return (
-                        <>
-                          <tr>
-                            <td>
-                              <img src={card.imgdata} alt={card.rname} style={{width:'5rem', height:'5rem'}}/>
-                            </td>
-                            <td>
-                              <p>{card.rname}</p>
-                              <p>Price: ${card.price}</p>
-                              <p>Quantity: {card.qnty}</p>
-                              <p style={{color:'red', cursor:'pointer', fontSize:20}}>
-                                <i className="fas fa-trash"></i>
-                              </p>
-                            </td>
-                          </tr>
-                        </>
-                      )
-                    })
-                  }
+                  {getData.map((card) => {
+                    return (
+                      <>
+                        <tr>
+                          <td>
+                            <NavLink
+                              to={`/cart/${card.id}`}
+                              onClick={handleClose}
+                            >
+                              <img
+                                src={card.imgdata}
+                                alt={card.rname}
+                                style={{ width: "5rem", height: "5rem" }}
+                              />
+                            </NavLink>
+                          </td>
+                          <td>
+                            <p>{card.rname}</p>
+                            <p>Price: ${card.price}</p>
+                            <p>Quantity: {card.qnty}</p>
+                            <p
+                              style={{
+                                color: "red",
+                                cursor: "pointer",
+                                fontSize: 20,
+                              }}
+                            >
+                              <i className="fas fa-trash" onClick={()=>deleteData(card.id)}></i>
+                            </p>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
+                  <p className="text-center mt-1">
+                    <b className="p-0">Total:</b> NPR. {price}
+                  </p>
                 </tbody>
               </Table>
             </div>

@@ -4,3 +4,10 @@ export const ADD_TO_CART = (item) => {
     payload: item
   };
 };
+
+export const DELETE_FROM_CART = (id) => {
+  return {
+    type: "DELETE FROM CART",
+    payload: id
+  };
+};
