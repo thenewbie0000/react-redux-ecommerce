@@ -11,3 +11,11 @@ export const DELETE_FROM_CART = (id) => {
     payload: id
   };
 };
+
+// decrement quantity by 1
+export const DECR_BY_1 = (item) => {
+  return {
+    type: "DECREMENT BY 1",
+    payload: item
+  };
+};

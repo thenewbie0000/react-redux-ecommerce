@@ -33,7 +33,7 @@ const Header = () => {
   const totalPrice = ()=>{
     let price= 0;
     getData.map((element, k)=>{
-      price = price + element.price;
+      price = price + element.price*element.qnty;
     })
     setPrice(price);
   }
@@ -138,7 +138,7 @@ const Header = () => {
                     );
                   })}
                   <p className="text-center mt-1">
-                    <b className="p-0">Total:</b> NPR. {price}
+                    <b className="p-0">Total:</b> $ {price}
                   </p>
                 </tbody>
               </Table>
