@@ -51,9 +51,6 @@ const Header = () => {
             <NavLink to="/" className="text-decoration-none text-light mx-3">
               Home
             </NavLink>
-            <NavLink to="/cart" className="text-decoration-none text-light">
-              Add to Cart
-            </NavLink>
           </Nav>
           <Badge
             badgeContent={getData.length}

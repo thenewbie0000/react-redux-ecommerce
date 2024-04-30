@@ -6,7 +6,6 @@ import { ADD_TO_CART, DECR_BY_1, DELETE_FROM_CART } from "../redux/action/action
 
 const CartsDetail = () => {
   const [data, setData] = useState([]);
-  console.log(data);
   const { id } = useParams();
   const getData = useSelector((state) => state.cartReducer.carts);
 
